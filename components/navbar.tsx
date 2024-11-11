@@ -1,10 +1,19 @@
 import { BadgePercentIcon } from "lucide-react";
 import Link from "next/link";
 import React from "react";
-import { Button, buttonVariants } from "./ui/button";
+import { Button } from "./ui/button";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
-import { redirect } from "next/navigation";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import ThemesToggle from "./Themes/ThemesToggle";
+import Logout from "./Logout";
 
 const Navbar = async () => {
   const session = await auth.api.getSession({
@@ -19,20 +28,23 @@ const Navbar = async () => {
         </Link>
         <div>
           {session ? (
-            <form
-              action={async () => {
-                "use server";
-                await auth.api.signOut({
-                  headers: await headers(),
-                });
-                redirect("/");
-              }}
-            >
-              <Button type="submit">Sign Out</Button>
-            </form>
+            <DropdownMenu>
+              <DropdownMenuTrigger>image</DropdownMenuTrigger>
+              <DropdownMenuContent className="space-y-2">
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>Profile</DropdownMenuItem>
+                <DropdownMenuItem>
+                  <ThemesToggle />
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Logout />
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           ) : (
             <Link href="/sign-in">
-              <Button className={buttonVariants()}>Sign In</Button>
+              <Button variant="outline">Sign In</Button>
             </Link>
           )}
         </div>
