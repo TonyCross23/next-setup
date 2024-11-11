@@ -21,28 +21,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
-
-const formSchema = z.object({
-  name: z
-    .string()
-    .min(1, {
-      message: "Name field is required",
-    })
-    .max(50),
-  email: z
-    .string()
-    .min(1, {
-      message: "Email field is required",
-    })
-    .max(50)
-    .email("Invalid email"),
-  password: z
-    .string()
-    .min(1, {
-      message: "Password field is required",
-    })
-    .max(50),
-});
+import { formSchema } from "@/lib/auth-schema";
 
 const SignUp = () => {
   const form = useForm<z.infer<typeof formSchema>>({

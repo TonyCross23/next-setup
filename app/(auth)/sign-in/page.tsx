@@ -21,26 +21,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
-
-const formSchema = z.object({
-  email: z
-    .string()
-    .min(1, {
-      message: "Email field is required",
-    })
-    .max(50)
-    .email("Invalid email"),
-  password: z
-    .string()
-    .min(1, {
-      message: "Password field is required",
-    })
-    .max(50),
-});
+import { sigInFormSchema } from "@/lib/auth-schema";
 
 const SignIn = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof sigInFormSchema>>({
+    resolver: zodResolver(sigInFormSchema),
     defaultValues: {
       email: "",
       password: "",
@@ -48,7 +33,7 @@ const SignIn = () => {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: z.infer<typeof sigInFormSchema>) {
     console.log(values);
   }
 
