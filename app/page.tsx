@@ -1,10 +1,7 @@
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
-
 export default function Home() {
   return (
-    <div>
-      <Button variant="outline">Hello</Button>
+    <div className="mt-10 text-center">
+      <h1 className="text-2xl font-bold">Happy Coding with Next.js</h1>
     </div>
   );
 }
